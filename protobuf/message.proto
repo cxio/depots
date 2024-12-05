@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+// 询问包
+// 寻找目标数据，需要确切的回应消息。
+message Quest {
+    int32 ver = 1;      // 消息包版本
+    uint64 id = 2;      // 询问ID
+    int32 hops = 3;     // 询问包跳数累计（<16）
+    int32 algor = 4;    // 公钥算法（<16）
+    bytes pubkey = 5;   // 公钥字节序列
+    int32 level = 6;    // NAT 层级：Pub/FullC|RC|P-RC|Sym
+    int32 kind = 7;     // 数据类别（<256）
+    bytes index = 8;    // 数据索引，最多32字节，可能含内部结构
+    uint32 size = 9;    // 数据大小（字节数），可选
+}
+
+// 探测包
+// 探查数据的存在性，协助节点评估和补充。
+// 签名为可选，
+// 签名的数据为探测数据的相关信息：kind+index+size（大端序）。
+message Probe {
+    int32 ver = 1;      // 消息包版本
+    int32 hops = 2;     // 跳数累计（<16）
+    int32 algor = 3;    // 签名算法（<16）
+    bytes pubkey = 4;   // 签名公钥，可选
+    bytes signd = 5;    // 签名数据，可选
+    int32 kind = 6;     // 数据类别（<256）
+    bytes index = 7;    // 数据索引（同询问包说明）
+    uint32 size = 8;    // 数据大小，可选
+}
+
+// 回复包
+message Reply {
+    int32 ver = 1;      // 消息包版本
+    uint64 id = 2;      // 询问ID
+    bytes pubkey = 3;   // 公钥数据，算法与询问包相同
+    bytes contact = 4;  // 连系信息（密文）
+}
+
+// 回复包：连系信息
+// 此用于编解码，作为Reply字段传输时已加密。
+message Contact {
+    int32 hops = 1;     // 跳数累计（<16）
+    int32 level = 2;    // NAT层级（<16）
+    string xnet = 3;    // 网络协议名（websocket|dtls|tcp|udp）
+    bytes ip = 4;       // 数据节点IP
+    int32 port = 5;     // 数据节点端口
+    bytes fip = 6;      // Findings服务节点IP
+    int32 fport = 7;    // Findings服务节点端口
+    string fkind = 8;   // 登录Findings节点的类别名
+}
+
+option go_package = "../packet";

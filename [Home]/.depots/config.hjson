@@ -1,0 +1,23 @@
+// 所有 TCP 连接皆为 websocket，
+// UDP 连接为 DTLS（Datagram Transport Layer Security）。
+{
+    user_id: "",            // 本节点身份ID（站群成员适用）
+    tcp_port: 7799,         // 本地服务端口（TCP）
+    udp_port: 7790,         // 本地服务端口（UDP）
+    depots: 8,              // 本类组网连接节点数
+    finders: 3,             // 连接Findings节点数
+    buffer_size: 1024,      // 连接读写缓冲区大小（websocket）
+    log_dir: "",            // 日志存放目录（全路径）
+    findings_port: 7788,    // 节点发现服务端口
+
+    // 内部：区块查询
+    blockqs: {
+        ip: "192.168.31.200",   // 服务器地址
+        port: 17791,            // 服务端口
+    },
+    // 内部：档案存储
+    archives: {
+        ip: "192.168.31.210",   // 服务器地址
+        port: 17792,            // 服务端口
+    },
+}
