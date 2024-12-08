@@ -62,11 +62,10 @@ type DHTag int
 
 // 几个常用密钥交换算法
 const (
-	DH_INVALID DHTag = iota // 无效值
-	DH_Tradi                // 惯用DH算法（x25519）
-	DH_X25519               // x25519曲线
-	DH_ECp256               // ECDH-p256曲线
-	DH_ECp384               // ECDH-p384曲线
+	DH_Tradi  DHTag = iota // 惯用DH算法（x25519）
+	DH_X25519              // x25519曲线
+	DH_ECp256              // ECDH-p256曲线
+	DH_ECp384              // ECDH-p384曲线
 )
 
 // GenerateKey 创建密钥交换用私钥

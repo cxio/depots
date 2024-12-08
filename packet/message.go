@@ -170,6 +170,7 @@ func EncodeQuest(b *Base, d *Data, dh *DHPack) ([]byte, error) {
 }
 
 // DecodeQuest 解码询问包
+// 返回的对端公钥用于节点构建共享密钥。
 // @return1 基础信息包
 // @return2 目标数据信息
 // @return3 公钥算法，-1表示无效值
@@ -178,7 +179,7 @@ func DecodeQuest(data []byte) (*Base, *Data, DHTag, []byte, error) {
 	buf := &Quest{}
 
 	if err := proto.Unmarshal(data, buf); err != nil {
-		return nil, nil, msg.DH_INVALID, nil, err
+		return nil, nil, -1, nil, err
 	}
 	b := NewBase(
 		int(buf.Ver),

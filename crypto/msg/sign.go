@@ -11,8 +11,7 @@ type SignTag int
 // 几个常用签名算法
 // 注：当前仅定义了ed25519。
 const (
-	SIGN_INVALID SignTag = iota // 无效值
-	SIGN_Tradi                  // 惯用签名算法（ed25519）
+	SIGN_Tradi   SignTag = iota // 惯用签名算法（ed25519）
 	SIGN_ED25519                // ed25519 签名
 )
 
