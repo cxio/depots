@@ -33,11 +33,11 @@ const (
 	Depots     = 8    // 本类组网连接节点数
 	Finders    = 3    // 连接Findings节点数
 	BufferSize = 1024 // 连接读写缓冲区大小
+	PloySeed   = ""   // 策略种子（默认值）
 )
 
-// 几个系统外服务配置。
-// 其中 Blockqs 和 Archives 为内部数据服务，
-// 需要支持检索和写入。
+// 几个服务配置。
+// 其中 Blockqs 和 Archives 为内部数据服务。
 const (
 	FindingsPort = 7788  // Findings服务器端口（TCP:Websocket）
 	BlockqsIP    = ""    // 区块查询服务地址，外部配置
@@ -60,14 +60,19 @@ const (
 	AppName = "ab"     // 本服务实现名
 )
 
-// 几个配置文件
-// 大部分在用户主目录内的.findings/子目录下。
+// 存储策略文件
+// 存放于用户主目录内的.depots/ploys/子目录下。
+// 二级子目录按类别值命名：
+// - 0 存档类（Archives）
+// - 1 区块链类（Blockqs）
 const (
-	fileDir    = ".depots"      // 配置文件目录
-	fileConfig = "config.hjson" // 基础配置文件
-	filePeers  = "peers.json"   // 有效节点清单
-	fileStakes = "stakes.hjson" // 服务器权益账户配置
-	fileBans   = "bans.json"    // 禁闭节点配置
+	PloyDir     = "ploys"          // 策略文件根目录
+	PloyWhite0  = "whitelist.json" // 白名单
+	PloyBlack0  = "blacklist.json" // 黑名单
+	PloyGo      = "ploy.go"        // 策略扩展（Go）
+	PloyLua     = "ploy.lua"       // 策略扩展（Lua）
+	PloyGoFunc  = "main.Ploy"      // 策略函数接口名（Go）
+	PloyLuaFunc = "ploy"           // 策略函数接口名（Lua）
 )
 
 // 日志文件名
@@ -76,6 +81,16 @@ const (
 	LogFile      = "depots.log" // 主程序日志
 	LogPeerFile  = "peers.log"  // 有效连接节点历史
 	LogDebugFile = "debug.log"  // 调试日志
+)
+
+// 几个配置文件。
+// 大部分在用户主目录内的.depots/子目录下。
+const (
+	fileDir    = ".depots"      // 配置文件目录
+	fileConfig = "config.hjson" // 基础配置文件
+	filePeers  = "peers.json"   // 有效节点清单
+	fileStakes = "stakes.hjson" // 服务器权益账户配置
+	fileBans   = "bans.json"    // 禁闭节点配置
 )
 
 //
@@ -105,4 +120,5 @@ type Config struct {
 	Finders      int    `json:"finders,omitempty"`       // 连接Findings节点数
 	BufferSize   int    `json:"buffer_size,omitempty"`   // 连接读写缓冲区大小
 	LogDir       string `json:"log_dir,omitempty"`       // 日志根目录，注意空串有特定含义
+	PloySeed     string `json:"ploy_seed,omitempty"`     // 策略种子
 }

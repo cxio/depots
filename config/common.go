@@ -12,7 +12,7 @@ import (
 )
 
 // Base 获取基础配置。
-// 用户的配置文件为 ~/.findings/config.json
+// 用户的配置文件为 ~/.depots/config.hjson
 func Base() (*Config, error) {
 	// 默认配置值
 	config := &Config{
@@ -30,7 +30,8 @@ func Base() (*Config, error) {
 		Depots:       Depots,
 		Finders:      Finders,
 		BufferSize:   BufferSize,
-		LogDir:       "", // 注意空值有特别含义
+		PloySeed:     PloySeed,
+		LogDir:       "", // 空值表示使用系统缓存目录
 	}
 	// 当前用户主目录
 	usr, err := os.UserHomeDir()
@@ -50,7 +51,7 @@ func Base() (*Config, error) {
 }
 
 // Peers 获取用户配置的节点IP信息集。
-// 配置文件 ~/.findings/peers.json，内容可能由App发布时配置，或用户自己修改配置。
+// 配置文件 ~/.depots/peers.json，内容可能由App发布时配置，或用户自己修改配置。
 // 其中的IP应当至少是曾经有效的，其也可以作为 find.PointIPs 中的起点IP。
 // 返回的集合中排除了重复的IP地址。
 func Peers() (map[netip.Addr]*Peer, error) {
@@ -114,7 +115,7 @@ func Bans() (map[string]time.Time, error) {
 // Stakes 读取权益配置集
 // 服务器支持的应用类型名称，以及可受益的账户地址。
 // 对于提供了服务但没有相应区块链收益地址的，账户设置为空串。
-// 配置文件 ~/.findings/services.json
+// 配置文件 ~/.deqots/stakes.hjson
 func Stakes() (map[string]string, error) {
 	// 用户主目录
 	usr, err := os.UserHomeDir()
@@ -133,6 +134,28 @@ func Stakes() (map[string]string, error) {
 	err = hjson.Unmarshal(data, &stakes)
 
 	return stakes, err
+}
+
+// Ploys 读取存储策略配置集
+// 存储策略配置文件存放于用户主目录内的.depots/ploys/子目录下。
+func Ploys(file string) (map[string]string, error) {
+	// 用户主目录
+	usr, err := os.UserHomeDir()
+	if err != nil {
+		return nil, err
+	}
+	var ploys map[string]string
+	configPath := filepath.Join(usr, fileDir, ployDir, file)
+
+	data, err := os.ReadFile(configPath)
+	// 容错文件不存在
+	if err != nil {
+		log.Println("[Error]", err)
+		return ploys, nil
+	}
+	err = hjson.Unmarshal(data, &ploys)
+
+	return ploys, err
 }
 
 // CreateLoger 创建一个日志记录器。

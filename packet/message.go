@@ -1,3 +1,4 @@
+// Package packet 定义消息包结构及相关的操作。
 package packet
 
 import (

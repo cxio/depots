@@ -8,9 +8,11 @@ require (
 	google.golang.org/protobuf v1.35.2
 )
 
-require github.com/hjson/hjson-go v3.3.0+incompatible // indirect
+require github.com/hjson/hjson-go v3.3.0+incompatible
 
 require (
+	github.com/traefik/yaegi v0.16.1
+	github.com/yuin/gopher-lua v1.1.1
 	golang.org/x/crypto v0.29.0
 	golang.org/x/sys v0.27.0 // indirect
 )
