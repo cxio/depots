@@ -30,6 +30,7 @@ func Base() (*Config, error) {
 		Depots:       Depots,
 		Finders:      Finders,
 		BufferSize:   BufferSize,
+		PloyLang:     "go",
 		PloySeed:     PloySeed,
 		LogDir:       "", // 空值表示使用系统缓存目录
 	}
@@ -136,7 +137,7 @@ func Stakes() (map[string]string, error) {
 	return stakes, err
 }
 
-// Ploys 读取存储策略配置集
+// ? Ploys 读取存储策略配置集
 // 存储策略配置文件存放于用户主目录内的.depots/ploys/子目录下。
 func Ploys(file string) (map[string]string, error) {
 	// 用户主目录
@@ -145,7 +146,7 @@ func Ploys(file string) (map[string]string, error) {
 		return nil, err
 	}
 	var ploys map[string]string
-	configPath := filepath.Join(usr, fileDir, ployDir, file)
+	configPath := filepath.Join(usr, fileDir, PloyDir, file)
 
 	data, err := os.ReadFile(configPath)
 	// 容错文件不存在

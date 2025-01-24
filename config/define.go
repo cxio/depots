@@ -120,5 +120,6 @@ type Config struct {
 	Finders      int    `json:"finders,omitempty"`       // 连接Findings节点数
 	BufferSize   int    `json:"buffer_size,omitempty"`   // 连接读写缓冲区大小
 	LogDir       string `json:"log_dir,omitempty"`       // 日志根目录，注意空串有特定含义
+	PloyLang     string `json:"ploy_lang,omitempty"`     // 策略函数实现语言
 	PloySeed     string `json:"ploy_seed,omitempty"`     // 策略种子
 }
