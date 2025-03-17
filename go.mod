@@ -1,6 +1,6 @@
 module github.com/cxio/depots
 
-go 1.23.2
+go 1.23
 
 require (
 	github.com/cloudflare/circl v1.5.0
