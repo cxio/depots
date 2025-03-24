@@ -1,28 +1,21 @@
 // 所有 TCP 连接皆为 websocket，
 // UDP 连接为 DTLS（Datagram Transport Layer Security）。
 {
-    user_id: "",            // 本节点身份ID（站群成员适用）
     tcp_port: 7799,         // 本地服务端口（TCP）
     udp_port: 7790,         // 本地服务端口（UDP）
     depots: 8,              // 本类组网连接节点数
     finders: 3,             // 连接Findings节点数
     buffer_size: 1024,      // 连接读写缓冲区大小（websocket）
-    log_dir: "",            // 日志存放目录（全路径）
+    log_root: "_logs",      // 日志存放根目录（相对于当前目录）
     findings_port: 7788,    // 节点发现服务端口
 
-    // 内部：区块查询
-    blockqs: {
-        ip: "192.168.31.200",   // 服务器地址
-        port: 17791,            // 服务端口
-    },
-    // 内部：档案存储
+    // 存档服务配置（内网）
     archives: {
-        ip: "192.168.31.210",   // 服务器地址
-        port: 17792,            // 服务端口
+        ip: "192.168.31.210",
+        port: 17792,
     },
 
-    // 策略函数语言
-    // 仅限于 Go 或 Lua 两者之一，小写。可选（默认go）。
+    // 策略函数用语言（小写）
     ploy_lang: "go",
 
     // 策略种子（任意）
