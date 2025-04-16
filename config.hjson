@@ -9,6 +9,7 @@
     ploy_lang: "go",        // 策略函数用语言（小写）
 
     // 策略种子（任意）
-    // 会与数据ID串接并哈希，用于黑白名单匹配。可选
+    // 会与数据ID串接并哈希，用于黑白名单匹配。
+    // 请修改为你自己喜欢的。
     ploy_seed: "depots:$1XPTgDRhN8RFnzniWCddobD9iKZatrvH4[131]>>17SkEw2md5avVNyYgj6RiXuQKNwkXaxFyQ.20241230@chainx.zh~",
 }
