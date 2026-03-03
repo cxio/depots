@@ -16,9 +16,6 @@ import (
 const (
 	// 不支持的算法标识
 	failAlgor = "Unsupported algorithm identifier."
-
-	// 密钥长度不足
-	failKeylen = "The key length is insufficient."
 )
 
 var (

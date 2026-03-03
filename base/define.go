@@ -18,7 +18,7 @@
 //
 
 // Package config 全局配置集
-package config
+package base
 
 import (
 	"net/netip"
@@ -81,16 +81,6 @@ const (
 	LogFile      = "depots.log" // 主程序日志
 	LogPeerFile  = "peers.log"  // 有效连接节点历史
 	LogDebugFile = "debug.log"  // 调试日志
-)
-
-// 几个配置文件。
-// 大部分在用户主目录内的.depots/子目录下。
-const (
-	fileDir    = ".depots"      // 配置文件目录
-	fileConfig = "config.hjson" // 基础配置文件
-	filePeers  = "peers.json"   // 有效节点清单
-	fileStakes = "stakes.hjson" // 服务器权益账户配置
-	fileBans   = "bans.json"    // 禁闭节点配置
 )
 
 //
