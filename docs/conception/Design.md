@@ -61,7 +61,7 @@
 ```go
 // 询问者初始 WayOn
 // Seed 为询问者私有种子
-// Hash 采用 BLAKE3 截取结果前 20 字节。
+// Hash 采用 SHA-256 截取结果前 20 字节。
 WayOn = Hash( Proof || Hops || Seed )
 
 // 每一跳 WayOn
@@ -127,7 +127,7 @@ baseInfo := domainTag ||
 
 ```go
 // 求解：
-// Hash256  256位哈希算法：BLAKE3
+// Hash256  哈希算法：SHA-256
 // Rand16   工作量求解者寻找的16字节随机数，会作为证明的后半段
 // solution 一个合法解，2*8 = 16字节
 var Rand16, solution
